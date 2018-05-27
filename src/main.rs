@@ -231,6 +231,13 @@ fn handle_keys(key: Key, tcod: &mut Tcod, map: &mut Map, objects: &mut Vec<Objec
 			}
 			DidntTakeTurn
 		}
+
+		(Key { printable: '.', ..}, true) => {
+			// wait a turn instead of preforming an action
+			TookTurn
+		}
+
+		// catch anything else
 		_ => DidntTakeTurn,
 	}
 }
@@ -366,6 +373,7 @@ fn place_objects(room: Rect, map: &Map, objects: &mut Vec<Object>) {
 				else {
 					// 10% chance to create a fireball scroll
 					let mut object = Object::new(x, y, '#', "scroll of fireball", colors::LIGHT_YELLOW, false);
+					object.item = Some(Item::Fireball);
 					object
 				};
 				objects.push(item);
