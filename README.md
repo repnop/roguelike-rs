@@ -1,5 +1,7 @@
-#roguelike-rs
-### aka. I followed a tutorial to make a roguelike and want to see where I can go with this
+# roguelike-rs
+
+## aka. I followed a tutorial to make a roguelike and want to see where I can go with this
+
 ### Backstory / Goal
 I'm a huge fan of roguelikes and have always wanted to make my own, this is me doing that. I plan to slowly develop this into a fully featured roguelike but for now have based the majority of it off of [this tutorial](https://tomassedovic.github.io/roguelike-tutorial/). As of writing I've nearly completed the tutorial with my own alterations and will be moving onto refactoring some of the code and implementing features. If I get far enough into this project I plan to move it to a new repo under a new name and actually treat it as a proper game.
 ### Future Plan
