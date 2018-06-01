@@ -104,9 +104,34 @@ fn main() {
 	};
 	
 	// initialize the game
-	let (mut objects, mut game) = new_game(&mut tcod);
+	main_menu(&mut tcod);
+}
 
-	play_game(&mut objects, &mut game, &mut tcod);
+// main menu
+fn main_menu(tcod: &mut Tcod) {
+	while !tcod.root.window_closed() {
+
+
+		// title print out
+		tcod.root.set_default_foreground(colors::LIGHT_YELLOW);
+		tcod.root.print_ex(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 4, BackgroundFlag::None, TextAlignment::Center, "roguelike-rs");
+		tcod.root.print_ex(SCREEN_WIDTH/2, SCREEN_HEIGHT -2, BackgroundFlag::None, TextAlignment::Center, "By some shit");
+
+		// menu
+		let choices = &["Play a new game", "Continue last game", "Quit"];
+		let choice = menu("", choices, 24, &mut tcod.root);
+
+		match choice {
+			Some(0) => { // new game
+				let (mut objects, mut game) = new_game(tcod);
+				play_game(&mut objects, &mut game, tcod);
+			},
+			Some(2) => {
+				break;
+			},
+			_ => {},
+		}
+	}
 }
 
 // some code to init the game
@@ -183,6 +208,7 @@ fn init_fov(map: &Map, tcod: &mut Tcod) {
 			tcod.fov.set(x, y, !map[x as usize][y as usize].block_sight, !map[x as usize][y as usize].blocked);
 		}
 	}
+	tcod.con.clear();
 }
 
 // function to handle keyboard input
@@ -631,8 +657,13 @@ fn menu<T: AsRef<str>>(header: &str, options: &[T], width: i32, root: &mut Root)
 	// make sure the menu isn't too large
 	assert!(options.len() <= 26, "Cannot have a menu w/ more than 26 opt");
 
-	// define height of the menu
-	let header_height = root.get_height_rect(0, 0, width, SCREEN_HEIGHT, header);
+	// calculate total height for the header (after auto-wrap) and one line per option
+	let header_height = if header.is_empty() {
+		0
+	}
+	else {
+		root.get_height_rect(0, 0, width, SCREEN_HEIGHT, header)
+	};
 	let height = options.len() as i32 + header_height;
 
 	// create the window size
