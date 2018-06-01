@@ -10,6 +10,10 @@ extern crate tcod;
 extern crate serde_derive;
 extern crate serde;
 
+mod constants;
+
+use constants::*;
+
 use std::cmp;
 
 use rand::Rng;
@@ -18,80 +22,6 @@ use tcod::colors::{self, Color};
 use tcod::console::*;
 use tcod::input::{self, Event, Key, Mouse};
 use tcod::map::{FovAlgorithm, Map as FovMap};
-
-// a few constants for root memes
-const SCREEN_WIDTH: i32 = 80;
-const SCREEN_HEIGHT: i32 = 50;
-
-// FPS limitter
-const LIMIT_FPS: i32 = 60;
-
-// map stuff
-const MAP_WIDTH: i32 = 80;
-const MAP_HEIGHT: i32 = 43;
-
-// color stuff
-const COLOR_DARK_WALL: Color = Color { r: 0, g: 0, b: 100 };
-const COLOR_LIGHT_WALL: Color = Color {
-	r: 130,
-	g: 110,
-	b: 50,
-};
-const COLOR_DARK_GROUND: Color = Color { r: 0, g: 0, b: 150 };
-const COLOR_LIGHT_GROUND: Color = Color {
-	r: 200,
-	g: 180,
-	b: 50,
-};
-
-// room stuffs
-const ROOM_MAX_SIZE: i32 = 10;
-const ROOM_MIN_SIZE: i32 = 6;
-const MAX_ROOMS: i32 = 30;
-
-// create map type
-type Map = Vec<Vec<Tile>>;
-
-// msg shiz
-type Messages = Vec<(String, Color)>;
-
-// FOV stuff
-const FOV_ALGO: FovAlgorithm = FovAlgorithm::Basic;
-const FOV_LIGHT_WALLS: bool = true;
-const TORCH_RADIUS: i32 = 10;
-
-// scary monsters
-const MAX_ROOM_MONSTERS: i32 = 3;
-
-// nice stuff
-const MAX_ROOM_ITEMS: i32 = 2;
-const MAX_INVENTORY_SLOTS: usize = 26;
-const INVENTORY_WIDTH: i32 = 50;
-
-// player will always be obj no 1
-const PLAYER: usize = 0;
-
-// panel shit
-const BAR_WIDTH: i32 = 20;
-const PANEL_HEIGHT: i32 = 7;
-const PANEL_Y: i32 = SCREEN_HEIGHT - PANEL_HEIGHT;
-
-// more panel shit, this time msgs
-const MSG_X: i32 = BAR_WIDTH + 2;
-const MSG_WIDTH: i32 = SCREEN_WIDTH - BAR_WIDTH - 2;
-const MSG_HEIGHT: usize = PANEL_HEIGHT as usize - 1;
-
-// lightning shit
-const LIGHTNING_RANGE: i32 = 20;
-const LIGHTNING_DAMAGE: i32 = 5;
-
-// confuse shit
-const CONFUSE_RANGE: i32 = 8;
-const CONFUSE_NUM_TURNS: i32 = 10;
-
-// fireball shit
-const FIREBALL_RADIUS: i32 = 3;
-const FIREBALL_DAMAGE: i32 = 12;
 
 fn main() {
 	// set up the window settings
