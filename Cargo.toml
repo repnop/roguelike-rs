@@ -1,8 +1,10 @@
 [package]
+authors = ["Noah <noah791@gmail.com>"]
 name = "roguelike-rs"
 version = "0.1.0"
-authors = ["Noah <noah791@gmail.com>"]
-
 [dependencies]
-tcod = "0.12.1"
 rand = "0.5.0"
+serde = "1.0.64"
+serde_derive = "1.0.64"
+serde_json = "1.0.19"
+tcod = { version = "0.12.1", features = ["serialization"] }

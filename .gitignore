@@ -1,3 +1,8 @@
 
 /target/
 **/*.rs.bk
+/gnu-mingw
+/msvc
+SDL2.dll
+build.rs
+savegame
